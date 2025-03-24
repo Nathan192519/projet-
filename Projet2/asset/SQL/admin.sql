@@ -1,25 +1,20 @@
--- SHOW DATABASES;
--- CREATE DATABASE equipe_db;
--- USE equipe_db;
+CREATE DATABASE IF NOT EXISTS admin_db;
+USE admin_db;
 
--- CREATE TABLE IF NOT EXISTS todos(
---     ktodo int not null auto_increment primary key,
---     title varchar(50) not null
--- )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('admin') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- INSERT INTO todos VALUES
--- (1, 'Préparer cours POO'),
--- (2, 'Faire les TD de POO'),
--- (3, 'Imaginer le TP'),
--- (4, 'Penser à un sujet de DS'),
--- (5, 'Écrire le DS');
+INSERT INTO users (username, password, role) VALUES ('admin123', '1234', 'admin');
 
+CREATE TABLE IF NOT EXISTS articles (
+  title VARCHAR(100) NOT NULL,
+  content TEXT NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- CREATE TABLE `users` (
---   `kuser` int NOT NULL,
---   `login` text NOT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- INSERT INTO `users` (`kuser`, `login`) VALUES
--- (1, 'Luc'),
--- (2, 'toto');
+COMMIT;

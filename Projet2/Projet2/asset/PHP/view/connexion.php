@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Définir les identifiants corrects
     $admin_id_correct = "admin123";
-    $password_correct = "1234"; // Corrigé ici
+    $password_correct = "password123";
 
     // Vérifier les identifiants
     if ($admin_id !== $admin_id_correct) {
@@ -29,35 +29,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<h1>Admin Login</h1>
-<form class="admin" action="/asset/PHP/view/connexion.php" method="post">
+?>
+ <h1>Admin Login</h1>
+    <form class="admin" action="/asset/PHP/view/connexion.php" method="post">
     <?php if (!empty($error_id)): ?>
-        <span class="error"><?= $error_id; ?></span>
+    <span class="error"><?= $error_id; ?></span>
     <?php endif; ?>
-    <label for="username">Admin ID :</label><br>
-    <input type="text" id="username" name="username" required><br><br>
-    <label for="password">Password :</label><br>
-    <input type="password" id="password" name="password" required><br><br>
-    <?php if (!empty($error_password)): ?>
+        <label for="username">Admin ID :</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password :</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <?php if (!empty($error_password)): ?>
         <span class="error"><?= $error_password; ?></span>
-    <?php endif; ?>
-    <button type="submit">Sign in</button>
-</form>
-<hr>
+        <?php endif; ?>
+        <button type="submit">Sign in</button>
+    </form>
+    </form>
+    <hr>
 <?php include __DIR__ . '/partials/foot.php'; ?>
 
 <style>
-    h1 {
+    h1{
         font-family: "hades";
         text-align: center;
     }
-    .admin {
-        text-align: center;
-        margin-bottom: 50px;
-    }
-    .error {
-        color: red;
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
+.admin{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
 </style>

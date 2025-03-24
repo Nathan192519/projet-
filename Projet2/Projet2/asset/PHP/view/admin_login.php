@@ -1,32 +1,18 @@
 <?php
 session_start();
 
-use Core\Database;
-
-// Configuration de la base de données
-$config = [
-    'host' => 'localhost',
-    'dbname' => 'admin_db',
-    'charset' => 'utf8mb4'
-];
-
-// Établir la connexion à la base de données
-$db = new Database(config: $config, user: 'user', password: 'admin123'); // Utiliser les informations d'identification fournies
-
 // Vérification des identifiants
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin_id = $_POST['admin_id'];
     $password = $_POST['password'];
 
-    // Requête pour vérifier les identifiants dans la base de données
-    $query = "SELECT * FROM users WHERE username = :username";
-    $db->query($query, param: ['username' => $admin_id]);
-    $user = $db->find();
+    // Remplacez ces valeurs par celles de votre base de données
+    $admin_id_correct = 'admin123';
+    $password_correct = 'password123';
 
-    // Vérification des identifiants
-    if ($user && $user['password'] === '1234') { // Vérification du mot de passe
+    if ($admin_id === $admin_id_correct && $password === $password_correct) {
         $_SESSION['admin_logged_in'] = true; // L'utilisateur est connecté
-        header(header: 'Location: /asset/PHP/view/admin_dashboard.php'); // Redirection vers le tableau de bord
+        header('Location:/asset/PHP/view/admin_login.php'); // Redirection vers le tableau de bord
         exit;
     } else {
         $error = "Identifiant ou mot de passe incorrect.";
@@ -54,5 +40,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
         <button type="submit">Se connecter</button>
     </form>
-</body>
-</html>

@@ -1,24 +1,40 @@
 <?php
 
-include __DIR__ . '/partials/header.php';
+namespace Core;
+
+use PDO;
+
+// Inclure le fichier de configuration
 include __DIR__ . '/../../config/app.php';
-$sql = "SELECT * FROM `equipe`";
-$result = $conn->query($sql);
+
+// Configuration de la base de données
+$config = [
+    'host' => 'localhost',
+    'dbname' => 'admin_db',
+    'charset' => 'utf8mb4'
+];
+
+// Établir la connexion à la base de données
+$db = new Database($config, 'user', 'admin123'); // Utiliser les informations d'identification fournies
+
+$sql = "SELECT * FROM articles"; // Changer de `equipe` à `articles`
+$result = $db->query($sql)->get(); // Utiliser la méthode de la classe Database
+
 ?>
 
 <h1>ADMINISTRATION</h1>
-    <?php while ($row = $result->fetch_assoc()): ?>
+<table>
+    <?php foreach ($result as $row): ?>
     <tr>
         <td><?= $row['id']; ?></td>
-        <td><?= $row['nom']; ?></td>
-        <td><?= $row['prenom']; ?></td>
+        <td><?= $row['title']; ?></td> <!-- Changer de `nom` à `title` -->
         <td>
-            <a href="/asset/controller/cat/update.php">Modifier</a>
+            <a href="/asset/controller/cat/update.php?id=<?= $row['id']; ?>">Modifier</a>
             <a href="/asset/controller/cat/create.php">Ajouter</a>
-            <a href="destroy.php?id=<?php echo $row['id']; ?>"onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
+            <a href="destroy.php?id=<?= $row['id']; ?>" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
         </td>
     </tr>
-    <?php endwhile; ?>
+    <?php endforeach; ?>
 </table>
 <form action="/asset/PHP/view/add.profil.php" method="POST">
     <label for="titre"> Nom :</label>
@@ -33,7 +49,7 @@ $result = $conn->query($sql);
 </form>
 
 <style>
-    h1{
+    h1 {
         font-family: 'hades', sans-serif;
         text-align: center;
         margin-top: 30px;
